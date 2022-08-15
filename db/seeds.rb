@@ -18,9 +18,8 @@ puts "Seeding database"
 # seed all doctors, storing id to access when creating patients
 doctorArray = []
 10.times do
-    newDoc = Doctor.new(name: Faker::Name.name)
+    newDoc = Doctor.create(name: Faker::Name.name)
     doctorArray << newDoc.id
-    newDoc.save
 end
 
 
@@ -29,9 +28,8 @@ patientArray = []
 doctorArray.each do |doc|
     doctorByID = Doctor.find_by(id: doc)
     10.times do
-        newPatient = Patient.new(name: Faker::FunnyName.name, doctor_id: doctorByID.id)
+        newPatient = Patient.create(name: Faker::FunnyName.name, doctor_id: doctorByID.id)
         patientArray << newPatient.id
-        newPatient.save
     end
 end
 
@@ -47,7 +45,11 @@ patientArray.each do |patient|
         futureAppointment = Appointment.new(doctor_id: Doctor.all.sample.id, patient_id: patientById.id, duration_in_minutes: 50, start_time: Faker::Date.forward(days: 30))
         futureAppointment.save
     end
+end
 
+# create doctors with no appointments (Requirement #4)
+2.times do 
+    Doctor.create(name: Faker::Name.name)
 end
 
 
