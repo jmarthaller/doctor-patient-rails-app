@@ -13,6 +13,10 @@ gem "puma", "~> 3.11"
 gem "rails", "~> 6.0.3"
 gem "bootsnap", ">= 1.4.2", require: false
 
+# helpers
+# gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+gem "faker"
+
 group :development, :test do
   # Call "byebug" anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
