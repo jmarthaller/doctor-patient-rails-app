@@ -1,34 +1,27 @@
 class Api::AppointmentsController < ApplicationController
   
   def index
-      # TODO: serialize values
-      # TODO: return filtered values
-      # head :ok
+    # TODO: return filtered values
+    # head :ok
+    
+    appointments = Appointment.all
+    
+    formattedForRender = []
+    
+    # TODO: use serializer gem to boost performance
+      appointments.all.each do |appt|
+        formattedHash = {
+          id: appt.id,
+          patient: { name: appt.patient.name },
+          doctor: { name: appt.doctor.name, id: appt.doctor.id },
+          created_at: appt.created_at,
+          start_time: appt.start_time,
+          duration_in_minutes: appt.duration_in_minutes
+        }
+        formattedForRender << formattedHash
+      end
 
-      appointments = Appointment.all
-      # future
-      # appointments = appointments.select { |appt| appt.start_time >= Date.today.to_date  }  
-      # past
-      # appointments = appointments.select { |appt| appt.start_time < Date.today.to_date  }   
-      
-
-
-      # past
-      # appointments = appointments
-
-      # @users = @users.where(email: search_params['email']) if search_params['email'].present?
-
-
-      # if params[:start_time] < start_time.to_date.past? == true
-      #   appointments = Appointment.select { |appt| appt.start_time >= Date.today.to_date }
-      # else
-      #   appointments = Appointment.select { |appt| appt.start_time <  Date.today.to_date }
-      # end
-      # appointments = appointments.filter_only_future(params[:start_time]) if params[:start_time].present?
-      # puts params[:start_time]
-      # puts appointments.methods
-      # moddedAppointments = custom_jsonifier(appointments)
-      render json: appointments
+      render json: formattedForRender 
   end
 
 

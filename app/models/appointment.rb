@@ -13,19 +13,14 @@ class Appointment < ApplicationRecord
 
   # scope :filter_only_future, -> (start_time) { where start_time: start_time.to_date.past? == true }
 
-    # def custom_jsonifier(indexArray)
-    #   arrToReturn = []
-    #   indexArray.each do |entry| 
-    #     customObj = {
-    #         id: entry.self.id,
-    #         patient: { name: entry.self.patient.name },
-    #         doctor: { name: entry.self.doctor.name, id: entry.self.doctor.id },
-    #         created_at: entry.self.created_at,
-    #         start_time: entry.self.start_time,
-    #         duration_in_minutes: entry.self.duration_in_minutes
-    #       }
-    #       arrToReturn << customObj
-    #   end
-    #   return arrToReturn
+    # def custom_jsonifier
+    #   {
+    #     id: self.id,
+    #     patient: { name: self.patient.name },
+    #     doctor: { name: self.doctor.name, id: self.doctor.id },
+    #     created_at: self.created_at,
+    #     start_time: self.start_time,
+    #     duration_in_minutes: self.duration_in_minutes
+    #   }
     # end
 end
