@@ -1,4 +1,4 @@
-# TODO: Seed the database according to the following requirements:
+# Seed the database according to the following requirements:
 # - There should be 10 Doctors with unique names
 # - Each doctor should have 10 patients with unique names
 # - Each patient should have 10 appointments (5 in the past, 5 in the future)
@@ -14,7 +14,7 @@ puts "Destroying all instances"
 
 puts "Seeding database"
 
-
+# TODO: prepend Dr. to each doctor's name
 # seed all doctors, storing id to access when creating patients
 doctorArray = []
 10.times do
