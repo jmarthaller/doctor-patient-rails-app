@@ -15,6 +15,7 @@ puts "Destroying all instances"
 puts "Seeding database"
 
 # TODO: prepend Dr. to each doctor's name
+# TODO: change all camelCase to snake_case
 # seed all doctors, storing id to access when creating patients
 doctorArray = []
 10.times do

@@ -1,16 +1,17 @@
 class Api::AppointmentsController < ApplicationController
   
   def index
-    # TODO: return filtered values
     # head :ok
-
     if params[:past] == "0"
       # future appointments (includes today's date)
       appointments = Appointment.where("DATE(start_time) >= ?", Date.today)
     elsif params[:past] == "1"
       # past appointments
       appointments = Appointment.where("DATE(start_time) < ?", Date.today)
-    else  
+    elsif params[:length] && params[:page]
+      page_start = (params[:page].to_i - 1) * params[:length].to_i
+      appointments = Appointment.limit(params[:length]).offset(page_start)
+    else   
       appointments = Appointment.all
     end
       
