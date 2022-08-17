@@ -3,17 +3,21 @@ class Api::AppointmentsController < ApplicationController
   def index
     # TODO: return filtered values
     # head :ok
-    
-    @appointments = Appointment.all
-    # future appointments
-    # appointments = appointments.select { |appt| appt.start_time >= Date.today.to_date  }  
-    # past appointments
-    # appointments = appointments.select { |appt| appt.start_time < Date.today.to_date  }   
-    
+
+    if params[:past] == "0"
+      # future appointments (includes today's date)
+      appointments = Appointment.where("DATE(start_time) >= ?", Date.today)
+    elsif params[:past] == "1"
+      # past appointments
+      appointments = Appointment.where("DATE(start_time) < ?", Date.today)
+    else  
+      appointments = Appointment.all
+    end
+      
     formattedForRender = []
     
     # TODO: install serializer gem in docker container to boost performance
-      @appointments.each do |appt|
+      appointments.each do |appt|
         formattedHash = {
           id: appt.id,
           patient: { name: appt.patient.name },
@@ -31,7 +35,7 @@ class Api::AppointmentsController < ApplicationController
 
 
   def create
-    # Run from the command line to insert new appointment in the database
+    # Run below command from terminal to insert new appointment into the database
     # curl --header "Content-Type: application/json" --request POST --data '{"doctor_id": 54, "patient_id": 101, "duration_in_minutes": 50, "start_time": "2022-07-16 00:00:00"}' http://localhost:3000/api/appointments -v
     appointmentToCreate = Appointment.new(appointment_params)
     if appointmentToCreate.save
