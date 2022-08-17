@@ -16,35 +16,36 @@ puts "Seeding database"
 
 # TODO: prepend Dr. to each doctor's name
 # TODO: change all camelCase to snake_case
+# TODO: delete notes/cruft
 # seed all doctors, storing id to access when creating patients
-doctorArray = []
+doctor_array = []
 10.times do
-    newDoc = Doctor.create(name: Faker::Name.name)
-    doctorArray << newDoc.id
+    new_doc = Doctor.create(name: Faker::Name.name)
+    doctor_array << new_doc.id
 end
 
 
 # seed all patients, storing id to access when creating appointments
-patientArray = []
-doctorArray.each do |doc|
-    doctorByID = Doctor.find_by(id: doc)
+patient_array = []
+doctor_array.each do |doc|
+    doctor_by_id = Doctor.find_by(id: doc)
     10.times do
-        newPatient = Patient.create(name: Faker::FunnyName.name, doctor_id: doctorByID.id)
-        patientArray << newPatient.id
+        new_patient = Patient.create(name: Faker::FunnyName.name, doctor_id: doctor_by_id.id)
+        patient_array << new_patient.id
     end
 end
 
 
 
-patientArray.each do |patient|
-    patientById = Patient.find_by(id: patient)
+patient_array.each do |patient|
+    patient_by_id = Patient.find_by(id: patient)
     5.times do
-        pastAppointment = Appointment.new(doctor_id: Doctor.all.sample.id, patient_id: patientById.id, duration_in_minutes: 50, start_time: Faker::Date.backward(days: 30))
-        pastAppointment.save
+        past_appointment = Appointment.new(doctor_id: Doctor.all.sample.id, patient_id: patient_by_id.id, duration_in_minutes: 50, start_time: Faker::Date.backward(days: 30))
+        past_appointment.save
     end
     5.times do 
-        futureAppointment = Appointment.new(doctor_id: Doctor.all.sample.id, patient_id: patientById.id, duration_in_minutes: 50, start_time: Faker::Date.forward(days: 30))
-        futureAppointment.save
+        future_appointment = Appointment.new(doctor_id: Doctor.all.sample.id, patient_id: patient_by_id.id, duration_in_minutes: 50, start_time: Faker::Date.forward(days: 30))
+        future_appointment.save
     end
 end
 
