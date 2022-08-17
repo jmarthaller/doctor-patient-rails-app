@@ -5,11 +5,15 @@ class Api::AppointmentsController < ApplicationController
     # head :ok
     
     appointments = Appointment.all
+    # future appointments
+    # appointments = appointments.select { |appt| appt.start_time >= Date.today.to_date  }  
+    # past appointments
+    # appointments = appointments.select { |appt| appt.start_time < Date.today.to_date  }   
     
     formattedForRender = []
     
-    # TODO: use serializer gem to boost performance
-      appointments.all.each do |appt|
+    # TODO: install serializer gem in docker container to boost performance
+      appointments.each do |appt|
         formattedHash = {
           id: appt.id,
           patient: { name: appt.patient.name },
