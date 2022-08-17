@@ -4,7 +4,7 @@ class Api::AppointmentsController < ApplicationController
     # TODO: return filtered values
     # head :ok
     
-    appointments = Appointment.all
+    @appointments = Appointment.all
     # future appointments
     # appointments = appointments.select { |appt| appt.start_time >= Date.today.to_date  }  
     # past appointments
@@ -13,7 +13,7 @@ class Api::AppointmentsController < ApplicationController
     formattedForRender = []
     
     # TODO: install serializer gem in docker container to boost performance
-      appointments.each do |appt|
+      @appointments.each do |appt|
         formattedHash = {
           id: appt.id,
           patient: { name: appt.patient.name },
@@ -31,12 +31,20 @@ class Api::AppointmentsController < ApplicationController
 
 
   def create
-    # TODO: post new appointment
+    # Run from the command line to insert new appointment in the database
+    # curl --header "Content-Type: application/json" --request POST --data '{"doctor_id": 54, "patient_id": 101, "duration_in_minutes": 50, "start_time": "2022-07-16 00:00:00"}' http://localhost:3000/api/appointments -v
+    appointmentToCreate = Appointment.new(appointment_params)
+    if appointmentToCreate.save
+      formattedReturn = { patient: { name: appointmentToCreate.patient.name }, doctor: { id: appointmentToCreate.doctor.id }, start_time: appointmentToCreate.start_time, duration_in_minutes: appointmentToCreate.duration_in_minutes }
+      render json: formattedReturn, status: :created
+    else
+      render json: appointmentToCreate.errors, status: :unprocessable_entity 
+    end
   end
 
   private 
 
-  # def appointment_params
-  #   params.permit()
-  # end
+  def appointment_params
+    params.require(:appointment).permit(:doctor_id, :patient_id, :start_time, :duration_in_minutes)
+  end
 end
