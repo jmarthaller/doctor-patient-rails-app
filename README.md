@@ -75,7 +75,7 @@ When evaluating the program, the following are among the factors considered:
 
 I was unsure whether the structure of the JSON object listed in Requirement #5 was for the request of the POST action or the response: 
 
-```json
+```
 {
   patient: { name: <string> },
   doctor: { id: <int> },
@@ -88,7 +88,7 @@ I went with using the above JSON object structure as the response to the POST me
 
 ```ruby
 def create
-    # Run below command from terminal to POST new appointment (doctor_id and patient_id must be in db)
+    # Run below command from terminal to POST new appointment (doctor id and patient name must be in db)
     # curl --header "Content-Type: application/json" --request POST --data '{ "patient": { "name": "Stew Ng" }, "doctor": { "id": 141 }, "start_time": "2022-07-16 00:00:00", "duration_in_minutes": 50 }' http://localhost:3000/api/appointments -v
 
     associated_patient = Patient.find_by(name: params[:patient][:name])
