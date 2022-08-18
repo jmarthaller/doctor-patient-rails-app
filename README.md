@@ -69,3 +69,21 @@ When evaluating the program, the following are among the factors considered:
    Would we enjoy your code living along side our own?
  * Is it slow? For small to medium sized inputs, the processing delay should
    probably not be noticeable.
+
+
+### Additional Notes to Requirement 5: 
+
+I was unsure whether the structure of the JSON object listed in Requirement #5 was for the request of the POST action or the response: 
+
+```
+{
+  patient: { name: <string> },
+  doctor: { id: <int> },
+  start_time: <iso8604>,
+  duration_in_minutes: <int>
+}
+```
+
+I've included both versions in my code. The response version begins at line 40 of appointments_controller.rb, whereas the request version begins at line 53 of the same file. 
+
+Comment/uncomment the different versions to test functionality. Terminal commands are commented out in the same controller. 
