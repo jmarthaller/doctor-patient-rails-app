@@ -2,7 +2,7 @@
 # - There should be 10 Doctors with unique names
 # - Each doctor should have 10 patients with unique names
 # - Each patient should have 10 appointments (5 in the past, 5 in the future)
-#   - Each appointment should be 50 minutes in duration
+# - Each appointment should be 50 minutes in duration
 
 
 Patient.destroy_all
@@ -15,7 +15,6 @@ puts "Destroying all instances"
 puts "Seeding database"
 
 # TODO: prepend Dr. to each doctor's name
-# TODO: delete cruft
 # seed all doctors, storing id to access when creating patients
 doctor_array = []
 10.times do
