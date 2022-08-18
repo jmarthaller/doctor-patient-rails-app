@@ -1,7 +1,6 @@
 class Api::AppointmentsController < ApplicationController
   
   def index
-    # head :ok
     if params[:past] == "0"
       # future appointments (includes today's date)
       appointments = Appointment.where("DATE(start_time) >= ?", Date.today).includes(:doctor, :patient)
@@ -34,9 +33,10 @@ class Api::AppointmentsController < ApplicationController
   
   
   def create
-    # if JSON in Requirement #5 is for response
+    # Comment Out/Uncomment below if JSON structure in Requirement #5 is for response
     # Run below command from terminal to insert new appointment into the database 
     # curl --header "Content-Type: application/json" --request POST --data '{"doctor_id": 54, "patient_id": 101, "duration_in_minutes": 50, "start_time": "2022-07-16 00:00:00"}' http://localhost:3000/api/appointments -v
+
     appointment_to_create = Appointment.new(appointment_params)
     if appointment_to_create.save
       formatted_return = { patient: { name: appointment_to_create.patient.name }, doctor: { id: appointment_to_create.doctor.id }, start_time: appointment_to_create.start_time, duration_in_minutes: appointment_to_create.duration_in_minutes }
@@ -45,9 +45,11 @@ class Api::AppointmentsController < ApplicationController
       render json: appointment_to_create.errors, status: :unprocessable_entity 
     end
 
-    # if JSON in Requirement #5 is for request
+
+    # Comment Out/Uncomment below if JSON structure in Requirement #5 is for request
     # Run below command from terminal to insert new appointment into the database
     # curl --header "Content-Type: application/json" --request POST --data '{ "patient": { "name": "Ed Ible" }, "doctor": { "id": 54 }, "start_time": "2022-07-16 00:00:00", "duration_in_minutes": 50 }' http://localhost:3000/api/appointments -v
+
     # associated_patient = Patient.find_by(name: params[:patient][:name])
     # associated_doctor = Doctor.find_by(id: params[:doctor][:id])
     # params[:doctor_id] = associated_doctor[:id]
