@@ -4,15 +4,15 @@ class Api::AppointmentsController < ApplicationController
     # head :ok
     if params[:past] == "0"
       # future appointments (includes today's date)
-      appointments = Appointment.where("DATE(start_time) >= ?", Date.today)
+      appointments = Appointment.where("DATE(start_time) >= ?", Date.today).includes(:doctor, :patient)
     elsif params[:past] == "1"
       # past appointments
-      appointments = Appointment.where("DATE(start_time) < ?", Date.today)
+      appointments = Appointment.where("DATE(start_time) < ?", Date.today).includes(:doctor, :patient)
     elsif params[:length] && params[:page]
       page_start = (params[:page].to_i - 1) * params[:length].to_i
-      appointments = Appointment.limit(params[:length]).offset(page_start)
+      appointments = Appointment.limit(params[:length]).offset(page_start).includes(:doctor, :patient)
     else   
-      appointments = Appointment.all
+      appointments = Appointment.all.includes(:doctor, :patient)
     end
       
     formatted_for_render = []

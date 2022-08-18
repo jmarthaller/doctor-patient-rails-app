@@ -14,11 +14,8 @@ gem "rails", "~> 6.0.3"
 gem "bootsnap", ">= 1.4.2", require: false
 
 # helpers
-# gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 gem "faker"
-# gem "rack-cors"
-# TODO: get gem to bundle for serialization
-# gem 'jsonapi-rails'
+# gem 'jsonapi-serializer'
 
 group :development, :test do
   # Call "byebug" anywhere in the code to stop execution and get a debugger console
