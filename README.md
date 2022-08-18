@@ -75,7 +75,7 @@ When evaluating the program, the following are among the factors considered:
 
 I was unsure whether the structure of the JSON object listed in Requirement #5 was for the request of the POST action or the response: 
 
-```
+```json
 {
   patient: { name: <string> },
   doctor: { id: <int> },
@@ -84,6 +84,25 @@ I was unsure whether the structure of the JSON object listed in Requirement #5 w
 }
 ```
 
-I've included both versions in my code. The response version begins at line 40 of appointments_controller.rb, whereas the request version begins at line 53 of the same file. 
+I went with using the above JSON object structure as the response to the POST method, but have included the same create action if the intention was for this object to be included in the POST request: 
 
-Comment/uncomment the different versions to test functionality. Terminal commands are commented out in the same controller. 
+```ruby
+def create
+    # Run below command from terminal to POST new appointment (doctor_id and patient_id must be in db)
+    # curl --header "Content-Type: application/json" --request POST --data '{ "patient": { "name": "Stew Ng" }, "doctor": { "id": 141 }, "start_time": "2022-07-16 00:00:00", "duration_in_minutes": 50 }' http://localhost:3000/api/appointments -v
+
+    associated_patient = Patient.find_by(name: params[:patient][:name])
+    associated_doctor = Doctor.find_by(id: params[:doctor][:id])
+    params[:doctor_id] = associated_doctor[:id]
+    params[:patient_id] = associated_patient[:id]
+    new_appointment_hash = { "doctor_id"=>params[:doctor_id], "patient_id"=>params[:patient_id], "start_time"=>params[:start_time], "duration_in_minutes"=>params[:duration_in_minutes] }
+    appointment_to_create_custom_request = Appointment.new(new_appointment_hash)
+    if appointment_to_create_custom_request.save
+      render json: appointment_to_create_custom_request, status: :created
+    else
+      render json: appointment_to_create_custom_request.errors, status: :unprocessable_entity 
+    end
+end
+```
+
+Terminal commands to run the action for either version are included the above code snippet. 

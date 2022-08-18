@@ -33,8 +33,8 @@ class Api::AppointmentsController < ApplicationController
   
   
   def create
-    # Comment Out/Uncomment below if JSON structure in Requirement #5 is for response
-    # Run below command from terminal to insert new appointment into the database 
+    # See README for create action if provided JSON structure in Requirement #5 was intended for the request
+    # Run below command from terminal to POST new appointment (doctor_id and patient_id must be in db)
     # curl --header "Content-Type: application/json" --request POST --data '{"doctor_id": 141, "patient_id": 565, "duration_in_minutes": 50, "start_time": "2022-07-16 00:00:00"}' http://localhost:3000/api/appointments -v
 
     appointment_to_create = Appointment.new(appointment_params)
@@ -45,22 +45,6 @@ class Api::AppointmentsController < ApplicationController
       render json: appointment_to_create.errors, status: :unprocessable_entity 
     end
 
-
-    # Comment Out/Uncomment below if JSON structure in Requirement #5 is for request
-    # Run below command from terminal to insert new appointment into the database
-    # curl --header "Content-Type: application/json" --request POST --data '{ "patient": { "name": "Stew Ng" }, "doctor": { "id": 141 }, "start_time": "2022-07-16 00:00:00", "duration_in_minutes": 50 }' http://localhost:3000/api/appointments -v
-
-    # associated_patient = Patient.find_by(name: params[:patient][:name])
-    # associated_doctor = Doctor.find_by(id: params[:doctor][:id])
-    # params[:doctor_id] = associated_doctor[:id]
-    # params[:patient_id] = associated_patient[:id]
-    # new_appointment_hash = { "doctor_id"=>params[:doctor_id], "patient_id"=>params[:patient_id], "start_time"=>params[:start_time], "duration_in_minutes"=>params[:duration_in_minutes] }
-    # appointment_to_create_custom_request = Appointment.new(new_appointment_hash)
-    # if appointment_to_create_custom_request.save
-    #   render json: appointment_to_create_custom_request, status: :created
-    # else
-    #   render json: appointment_to_create_custom_request.errors, status: :unprocessable_entity 
-    # end
   end
 
   private 
