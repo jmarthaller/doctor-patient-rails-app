@@ -14,7 +14,6 @@ puts "Destroying all instances"
 
 puts "Seeding database"
 
-# TODO: prepend Dr. to each doctor's name
 # seed all doctors, storing id to access when creating patients
 doctor_array = []
 10.times do

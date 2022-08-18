@@ -35,7 +35,7 @@ class Api::AppointmentsController < ApplicationController
   def create
     # Comment Out/Uncomment below if JSON structure in Requirement #5 is for response
     # Run below command from terminal to insert new appointment into the database 
-    # curl --header "Content-Type: application/json" --request POST --data '{"doctor_id": 54, "patient_id": 101, "duration_in_minutes": 50, "start_time": "2022-07-16 00:00:00"}' http://localhost:3000/api/appointments -v
+    # curl --header "Content-Type: application/json" --request POST --data '{"doctor_id": 141, "patient_id": 565, "duration_in_minutes": 50, "start_time": "2022-07-16 00:00:00"}' http://localhost:3000/api/appointments -v
 
     appointment_to_create = Appointment.new(appointment_params)
     if appointment_to_create.save
@@ -48,7 +48,7 @@ class Api::AppointmentsController < ApplicationController
 
     # Comment Out/Uncomment below if JSON structure in Requirement #5 is for request
     # Run below command from terminal to insert new appointment into the database
-    # curl --header "Content-Type: application/json" --request POST --data '{ "patient": { "name": "Ed Ible" }, "doctor": { "id": 54 }, "start_time": "2022-07-16 00:00:00", "duration_in_minutes": 50 }' http://localhost:3000/api/appointments -v
+    # curl --header "Content-Type: application/json" --request POST --data '{ "patient": { "name": "Stew Ng" }, "doctor": { "id": 141 }, "start_time": "2022-07-16 00:00:00", "duration_in_minutes": 50 }' http://localhost:3000/api/appointments -v
 
     # associated_patient = Patient.find_by(name: params[:patient][:name])
     # associated_doctor = Doctor.find_by(id: params[:doctor][:id])
