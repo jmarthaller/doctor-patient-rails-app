@@ -27,7 +27,7 @@ patient_array = []
 doctor_array.each do |doc|
     doctor_by_id = Doctor.find_by(id: doc)
     10.times do
-        new_patient = Patient.create(name: Faker::FunnyName.name, doctor_id: doctor_by_id.id)
+        new_patient = Patient.create(name: Faker::Name.name, doctor_id: doctor_by_id.id)
         patient_array << new_patient.id
     end
 end
