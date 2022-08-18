@@ -105,4 +105,4 @@ def create
 end
 ```
 
-Terminal commands to run the action for either version are included the above code snippet. 
+Terminal commands to run the action for either version are included in the above code snippet. 

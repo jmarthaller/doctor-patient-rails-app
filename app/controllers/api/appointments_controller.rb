@@ -35,7 +35,7 @@ class Api::AppointmentsController < ApplicationController
   def create
     # See README for create action if provided JSON structure in Requirement #5 was intended for the request
     # Run below command from terminal to POST new appointment (doctor_id and patient_id must be in db)
-    # curl --header "Content-Type: application/json" --request POST --data '{"doctor_id": 141, "patient_id": 565, "duration_in_minutes": 50, "start_time": "2022-07-16 00:00:00"}' http://localhost:3000/api/appointments -v
+    # curl --header "Content-Type: application/json" --request POST --data '{"doctor_id": 205, "patient_id": 897, "duration_in_minutes": 50, "start_time": "2022-07-16 00:00:00"}' http://localhost:3000/api/appointments -v
 
     appointment_to_create = Appointment.new(appointment_params)
     if appointment_to_create.save

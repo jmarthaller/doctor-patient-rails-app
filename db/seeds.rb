@@ -17,7 +17,7 @@ puts "Seeding database"
 # seed all doctors, storing id to access when creating patients
 doctor_array = []
 10.times do
-    new_doc = Doctor.create(name: Faker::Name.name)
+    new_doc = Doctor.create(name: Faker::FunnyName.name)
     doctor_array << new_doc.id
 end
 
@@ -48,7 +48,7 @@ end
 
 # create doctors with no appointments (Requirement #4)
 2.times do 
-    Doctor.create(name: Faker::Name.name)
+    Doctor.create(name: Faker::FunnyName.name)
 end
 
 
